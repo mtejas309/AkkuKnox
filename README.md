@@ -1,12 +1,26 @@
-# React + Vite
+# Dynamic Dashboard Builder (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is built with **React + Vite**.  
+It allows users to build dashboards dynamically from a JSON structure of categories and widgets.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- **Dynamic categories & widgets:**  
+  Dashboard layout is driven by a JSON object.  
+  Each category can contain multiple widgets.
+- **Add & remove widgets:**  
+  Users can add new widgets (name + text) to a category or remove existing ones with a single click.
+- **Search functionality:**  
+  Quickly search widgets across all categories by name.
+- **Vite + React setup:**  
+  Fast development with Hot Module Replacement (HMR).
+## Installation & Running Locally
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/mtejas309/AkkuKnox.git
+cd AkkuKnox
+npm install
+npm run dev
