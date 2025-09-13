@@ -7,7 +7,7 @@ import {
   removeWidget,
   toggleWidgetVisibility,
 } from "../store/slices/dashboardSlice";
-import "../style/Dashboard.css";
+
 import {
   Button,
   TextField,
