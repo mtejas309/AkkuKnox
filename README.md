@@ -15,6 +15,8 @@ It allows users to build dashboards dynamically from a JSON structure of categor
   Quickly search widgets across all categories by name.
 - **Vite + React setup:**  
   Fast development with Hot Module Replacement (HMR).
+-  **Centralized State Management:**
+  Used Redux Toolkit to manage the entire dashboard layout (categories and widgets) as a single, predictable state object.
 ## Installation & Running Locally
 
 Clone the repository and install dependencies:
