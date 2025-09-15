@@ -1,4 +1,4 @@
-import Dashbaord from "./pages/Dashbaord";
+import Dashbaord from "./components/Dashbaord";
 function App() {
   return (
     <>
