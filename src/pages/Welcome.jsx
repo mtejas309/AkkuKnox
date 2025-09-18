@@ -225,7 +225,7 @@ function Welcome() {
                 View Projects
               </a>
               {/* Download Resume Button */}
-              <button
+              {/* <button
                 onClick={handleDownload}
                 disabled={isDownloading}
                 className={`px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg shadow-md transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-400/50 relative overflow-hidden group ${
@@ -266,7 +266,7 @@ function Welcome() {
                   </svg>
                 </span>
                 <span className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-              </button>
+              </button> */}
             </div>
           </div>
 
