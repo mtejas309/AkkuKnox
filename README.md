@@ -1,6 +1,6 @@
-# Portfolio Dashboard (React + Vite)
+# Portfolio  (React + Vite)
 
-This project is a **personal portfolio dashboard** built with **React + Vite**.
+This project is a **personal portfolio ** built with **React + Vite**.
 It’s designed to showcase my projects dynamically and interactively, allowing visitors to explore my work with ease.
 
 ## 🚀 Features
