@@ -44,48 +44,6 @@ const cardData = [
     details:
       "We created this guide after speaking with our community of interviewers, which includes over 100 current and former Amazon engineers, as well as our corpus of mock interviews",
   },
-  {
-    difficulty: "easy",
-    title: "Data Structure and Algorithms",
-    description: "Design a free food app",
-    details:
-      "We created this guide after speaking with our community of interviewers, which includes over 100 current and former Amazon engineers, as well as our corpus of mock interviews",
-  },
-  {
-    difficulty: "medium",
-    title: "Data Structure and Algorithms",
-    description: "Design a free food app",
-    details:
-      "We created this guide after speaking with our community of interviewers, which includes over 100 current and former Amazon engineers, as well as our corpus of mock interviews",
-  },
-  {
-    difficulty: "hard",
-    title: "Data Structure and Algorithms",
-    description: "Design a free food app",
-    details:
-      "We created this guide after speaking with our community of interviewers, which includes over 100 current and former Amazon engineers, as well as our corpus of mock interviews",
-  },
-  {
-    difficulty: "easy",
-    title: "Data Structure and Algorithms",
-    description: "Design a free food app",
-    details:
-      "We created this guide after speaking with our community of interviewers, which includes over 100 current and former Amazon engineers, as well as our corpus of mock interviews",
-  },
-  {
-    difficulty: "medium",
-    title: "Data Structure and Algorithms",
-    description: "Design a free food app",
-    details:
-      "We created this guide after speaking with our community of interviewers, which includes over 100 current and former Amazon engineers, as well as our corpus of mock interviews",
-  },
-  {
-    difficulty: "hard",
-    title: "Data Structure and Algorithms",
-    description: "Design a free food app",
-    details:
-      "We created this guide after speaking with our community of interviewers, which includes over 100 current and former Amazon engineers, as well as our corpus of mock interviews",
-  },
 ];
 
 export default function Landing2() {
