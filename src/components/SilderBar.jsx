@@ -33,7 +33,7 @@ function SideBar() {
           <li>
             <Link
               to="/"
-              className={`flex items-center px-3 py-3 rounded-md hover:bg-neutral-800 transition ${isActive(
+              className={`flex items-center px-3 py-3 rounded-md  transition ${isActive(
                 "/"
               )}`}
             >
@@ -46,7 +46,7 @@ function SideBar() {
           <li>
             <Link
               to="/responsive"
-              className={`flex items-center px-3 py-3 rounded-md hover:bg-neutral-800 transition ${isActive(
+              className={`flex items-center px-3 py-3 rounded-md  transition ${isActive(
                 "/responsive"
               )}`}
             >
@@ -59,7 +59,7 @@ function SideBar() {
           <li>
             <Link
               to="/dashboard"
-              className={`flex items-center px-3 py-3 rounded-md hover:bg-neutral-800 transition ${isActive(
+              className={`flex items-center px-3 py-3 rounded-md  transition ${isActive(
                 "/dashboard"
               )}`}
             >

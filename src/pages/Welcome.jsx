@@ -1,12 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { Circle } from "phosphor-react"; // Phosphor icon for timeline dots
 import { Link } from "react-router-dom";
+
 function Welcome() {
   const [isVisible, setIsVisible] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
+
+  const handleDownload = () => {
+    setIsDownloading(true);
+
+    // Create a fake download delay for better UX
+    setTimeout(() => {
+      // Create a link element to trigger download
+      const link = document.createElement("a");
+      link.href = "src/assets/TejasM_Resume (2).pdf"; // Update path if needed
+      link.download = "TejasM_Frontend_Developer_Resume.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      setIsDownloading(false);
+    }, 1500);
+  };
 
   const skills = [
     { name: "ReactJS", level: 90 },
@@ -192,7 +211,7 @@ function Welcome() {
             </p>
 
             {/* Buttons with hover glow */}
-            <div className="flex justify-center space-x-4 mt-8 animate-fade-in delay-500">
+            <div className="flex flex-wrap justify-center gap-4 mt-8 animate-fade-in delay-500">
               <a
                 href="#contact"
                 className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-blue-400/50 hover:shadow-lg"
@@ -205,6 +224,49 @@ function Welcome() {
               >
                 View Projects
               </a>
+              {/* Download Resume Button */}
+              <button
+                onClick={handleDownload}
+                disabled={isDownloading}
+                className={`px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg shadow-md transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-400/50 relative overflow-hidden group ${
+                  isDownloading ? "opacity-75 cursor-not-allowed" : ""
+                }`}
+              >
+                <span
+                  className={`relative z-10 ${
+                    isDownloading ? "opacity-0" : "opacity-100"
+                  }`}
+                >
+                  Download Resume
+                </span>
+                <span
+                  className={`absolute inset-0 flex items-center justify-center ${
+                    isDownloading ? "opacity-100" : "opacity-0"
+                  }`}
+                >
+                  <svg
+                    className="animate-spin h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                </span>
+                <span className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+              </button>
             </div>
           </div>
 
