@@ -185,10 +185,8 @@ function Welcome() {
           >
             {/* Heading with gradient shimmer */}
             <h1
-              className="text-5xl md:text-6xl font-extrabold mb-6 
-  bg-clip-text text-transparent 
-  bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 
-  animate-text-shimmer leading-snug pb-1"
+              className="text-5xl md:text-6xl font-ysabeau mb-6 text-gray-800 leading-snug pb-1 font-sans 
+             drop-shadow-lg"
             >
               Hey there! I'm Tejas 👋
             </h1>
