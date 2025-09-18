@@ -3,7 +3,7 @@ import { House, SquaresFour, List, Monitor } from "phosphor-react";
 import { Link, useLocation } from "react-router-dom";
 
 function SideBar() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const location = useLocation();
 
   // helper for active state
