@@ -1,0 +1,91 @@
+.l6-main {
+  background-color: lightpink;
+  display: flex;
+}
+.l6-m1 {
+  width: 30%;
+  padding: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.l6-m2 {
+  padding: 150px;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 20%;
+}
+.l6-m11 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.l6-m1-t1 {
+  font-size: 24px;
+  font-family: "Sora", sans-serif;
+}
+.l6-m1-t2 {
+  font-size: 16px;
+  font-family: "Sora", sans-serif;
+  color: gray;
+}
+.l6-m1-t3 {
+  font-size: 24px;
+  font-family: "Sora", sans-serif;
+}
+.l6-m1-t4 {
+  font-size: 16px;
+  font-family: "Sora", sans-serif;
+  color: blue;
+}
+.l6-m22 {
+  font-family: "Sora", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  border-bottom: 1px solid black;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+.l6-m22:last-child {
+  border-bottom: none;
+}
+.l6-answer {
+  font-size: 16px;
+  font-family: "Sora", sans-serif;
+  color: #444;
+  margin: 0 0 20px 0;
+  padding-left: 10px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 738px) {
+  .l6-main {
+    padding: 30px;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+  }
+  .l6-m1 {
+    padding: 10px;
+    width: 80%;
+  }
+  .l6-m2 {
+    padding: 10px;
+    width: 80%;
+  }
+}

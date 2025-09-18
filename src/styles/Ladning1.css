@@ -1,0 +1,70 @@
+.landing1-main {
+  padding-top: 150px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+}
+.l1-head {
+  font-family: "Sora", sans-serif;
+  font-size: 36px;
+}
+.l1-head2 {
+  font-family: "Sora", sans-serif;
+  font-size: 20px;
+  color: grey;
+}
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #dfdfdf;
+  min-width: 650px;
+  padding: 20px;
+  border-radius: 30px;
+}
+.search-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  color: #888;
+}
+.search-input::placeholder {
+  font-size: 16px;
+  color: #888;
+}
+.serach-icon {
+  font-size: 20px;
+  color: #888;
+}
+@media (max-width: 768px) {
+  .landing1-main {
+    padding-top: 50px;
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .l1-head {
+    font-family: "Sora", sans-serif;
+    font-size: 20px;
+  }
+  .l1-head2 {
+    font-family: "Sora", sans-serif;
+    font-size: 14px;
+    color: grey;
+  }
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 180px;
+    padding: 10px;
+    border-radius: 30px;
+  }
+}

@@ -1,0 +1,61 @@
+.l4-main {
+  display: flex;
+  padding: 50px;
+  align-items: center;
+  gap: 30px;
+}
+.l4-m1 {
+  width: 50%;
+}
+.l4-m2 {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 50%;
+}
+.l41 {
+  color: #888;
+  font-size: 22px;
+  width: 80%;
+  font-family: "Sora", sans-serif;
+}
+.l42 {
+  color: black;
+  font-weight: 500;
+  font-size: 16px;
+  width: 80%;
+  font-family: "Sora", sans-serif;
+}
+.l43 {
+  color: black;
+
+  font-size: 16px;
+  width: 80%;
+  font-family: "Sora", sans-serif;
+}
+.l44 {
+  color: blue;
+
+  font-size: 16px;
+  font-weight: 500;
+  font-family: "Sora", sans-serif;
+}
+.i-l4 {
+  width: 90%;
+}
+@media (max-width: 768px) {
+  .l4-main {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+  }
+  .l4-m1 {
+    width: 100%;
+  }
+  .i-l4 {
+    width: 100%;
+  }
+  .l4-m2 {
+    width: 100%;
+  }
+}

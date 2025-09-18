@@ -1,0 +1,80 @@
+.cards-main {
+  padding: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card1-main {
+  flex: 1 1 calc(33.333% - 20px);
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  padding: 16px;
+  border-radius: 20px;
+}
+
+.card1-sub {
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+.card1-sub2 {
+  padding: 4px 8px 2px 8px;
+  border-radius: 4px;
+
+  font-family: "Sora", sans-serif;
+  color: white;
+  font-size: 12px;
+}
+.card1-sub3 {
+  font-family: "Sora", sans-serif;
+  width: 100%;
+  color: grey;
+  font-size: 16px;
+}
+.cards2-sub {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+.cards2-sub1 {
+  font-size: 18px;
+  font-family: "Sora", sans-serif;
+  color: black;
+  font-weight: 600;
+}
+.cards2-sub2 {
+  font-size: 14px;
+  font-family: "Sora", sans-serif;
+  color: black;
+}
+.easy {
+  background-color: #4caf50;
+}
+
+.medium {
+  background-color: #ff9800;
+}
+
+.hard {
+  background-color: #f44336;
+}
+@media (max-width: 768px) {
+  .cards-main {
+    padding: 30px;
+  }
+  .card1-sub {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .card1-sub3 {
+    font-size: 14px;
+  }
+  .card1-main {
+    flex: 1 1 100%;
+  }
+}
