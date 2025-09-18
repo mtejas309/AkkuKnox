@@ -187,27 +187,33 @@ function Welcome() {
             <h1
               className="text-5xl md:text-6xl font-extrabold mb-6 
   bg-clip-text text-transparent 
-  bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 
-  animate-text-shimmer leading-normal pb-1"
+  bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 
+  animate-text-shimmer leading-snug pb-1"
             >
-              Hi, I'm Tejas 👋
+              Hey there! I'm Tejas 👋
             </h1>
 
-            {/* Subheading with fade effect */}
+            {/* Subheading with typewriter-like fade and underline animations */}
             <p className="text-xl max-w-3xl mx-auto leading-relaxed text-gray-700 mb-6 animate-fade-in delay-200">
-              A passionate{" "}
+              I'm a{" "}
               <span className="font-semibold text-blue-600 relative inline-block after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[3px] after:bg-blue-300 after:animate-pulse">
-                Front-End Developer
+                Front-End Magician
               </span>{" "}
-              transitioning to{" "}
+              diving into the world of{" "}
               <span className="font-semibold text-purple-600 relative inline-block after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[3px] after:bg-purple-300 after:animate-pulse">
-                Full-Stack Development
+                Full-Stack Adventures
               </span>{" "}
-              from Bengaluru. I build scalable and responsive applications using{" "}
-              <span className="font-semibold text-blue-600">
-                React, Node.js, MongoDB
+              from vibrant Bengaluru. I craft beautiful, scalable, and
+              responsive apps with{" "}
+              <span className="font-semibold text-blue-600 animate-bounce">
+                React ⚛️, Node.js 🟢, MongoDB 🍃
               </span>
-              .
+              , making ideas come alive in the browser.
+            </p>
+
+            {/* Optional CTA animation */}
+            <p className="text-gray-600 text-lg text-center mt-4 animate-bounce">
+              Let's build something amazing together 🚀
             </p>
 
             {/* Buttons with hover glow */}
