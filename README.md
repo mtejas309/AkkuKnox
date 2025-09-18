@@ -35,10 +35,4 @@ npm install
 npm run dev
 ```
 
-Then open `http://localhost:5173` in your browser to see your portfolio in action.
-
----
-
-If you want, I can also **rewrite the “showcase of my works” section** with a more engaging description and structure for each project to make it visually appealing for a portfolio.
-
-Do you want me to do that next?
+Then open `http://localhost:5173` in your browser to see in action
