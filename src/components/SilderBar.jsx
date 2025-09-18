@@ -17,10 +17,10 @@ function SideBar() {
       }`}
     >
       {/* Toggle */}
-      <div className="p-2">
+      <div>
         <button
           onClick={() => setOpen(!open)}
-          className="hover:bg-neutral-800  rounded-md flex items-center justify-center w-12 h-12"
+          className="hover:bg-neutral-800 p-2 rounded-md flex items-center justify-center w-12 h-12"
         >
           <List size={24} />
         </button>
