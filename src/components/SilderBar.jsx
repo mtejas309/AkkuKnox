@@ -13,14 +13,14 @@ function SideBar() {
   return (
     <div
       className={`bg-neutral-900 text-gray-300 h-screen flex flex-col transition-all duration-300 ${
-        open ? "w-64" : "w-16"
+        open ? "w-54" : "w-16"
       }`}
     >
       {/* Toggle */}
       <div>
         <button
           onClick={() => setOpen(!open)}
-          className="hover:bg-neutral-800 p-2 rounded-md flex items-center justify-center w-12 h-12"
+          className="hover:bg-neutral-800  rounded-md flex items-center justify-center w-12 h-12"
         >
           <List size={24} />
         </button>
