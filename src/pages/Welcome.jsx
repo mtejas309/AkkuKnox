@@ -1,45 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Circle } from "phosphor-react"; // Phosphor icon for timeline dots
 import { Link } from "react-router-dom";
+import {
+  SiReact,
+  SiJavascript,
+  SiHtml5,
+  SiCss3,
+  SiNodedotjs,
+  SiMongodb,
+  SiRedux,
+  SiTailwindcss,
+} from "react-icons/si";
+import { motion } from "framer-motion";
 
 function Welcome() {
   const [isVisible, setIsVisible] = useState(false);
-  const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
-
-  const handleDownload = () => {
-    setIsDownloading(true);
-
-    // Create a fake download delay for better UX
-    setTimeout(() => {
-      // Create a link element to trigger download
-      const link = document.createElement("a");
-      link.href = "src/assets/TejasM_Resume (2).pdf"; // Update path if needed
-      link.download = "TejasM_Frontend_Developer_Resume.pdf";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      setIsDownloading(false);
-    }, 1500);
-  };
-
-  const skills = [
-    { name: "ReactJS", level: 90 },
-    { name: "Node.js", level: 80 },
-    { name: "JavaScript", level: 85 },
-    { name: "MongoDB", level: 75 },
-    { name: "HTML/CSS", level: 95 },
-    { name: "Redux", level: 85 },
-    { name: "Express.js", level: 75 },
-    { name: "Git/GitHub", level: 80 },
-    { name: "Tailwind CSS", level: 90 },
-    { name: "Material UI", level: 85 },
-    { name: "Apex Charts", level: 70 },
-  ];
 
   const experiences = [
     {
@@ -123,6 +102,7 @@ function Welcome() {
       path: "/dashboard", // 👈 Added
     },
   ];
+
   const renderProjects = (category) =>
     projects
       .filter((proj) => proj.category === category)
@@ -171,10 +151,46 @@ function Welcome() {
         </div>
       ));
 
+  const frontendSkills = [
+    { name: "React", icon: SiReact },
+    { name: "Redux", icon: SiRedux },
+    { name: "JavaScript", icon: SiJavascript },
+    { name: "HTML", icon: SiHtml5 },
+    { name: "CSS", icon: SiCss3 },
+    { name: "Tailwind", icon: SiTailwindcss },
+  ];
+
+  const backendSkills = [
+    { name: "NodeJS", icon: SiNodedotjs },
+    { name: "ExpressJS", icon: SiNodedotjs },
+    { name: "MongoDB", icon: SiMongodb },
+    { name: "REST API", icon: SiJavascript },
+  ];
+
+  const containerVariants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.15 } },
+  };
+
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
+
+  const skillVariants = {
+    hidden: { opacity: 0, y: 20, scale: 0.95 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5 } },
+    hover: { scale: 1.05, y: -5, boxShadow: "0px 15px 25px rgba(0,0,0,0.1)" },
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
       <section className="py-16 px-4">
-        <div className="max-w-4xl mx-auto">
+        <div className=" mx-auto">
           {/* Intro */}
           <div
             className={`text-center transition-all duration-700 ${
@@ -228,49 +244,6 @@ function Welcome() {
               >
                 View Projects
               </a>
-              {/* Download Resume Button */}
-              {/* <button
-                onClick={handleDownload}
-                disabled={isDownloading}
-                className={`px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg shadow-md transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-400/50 relative overflow-hidden group ${
-                  isDownloading ? "opacity-75 cursor-not-allowed" : ""
-                }`}
-              >
-                <span
-                  className={`relative z-10 ${
-                    isDownloading ? "opacity-0" : "opacity-100"
-                  }`}
-                >
-                  Download Resume
-                </span>
-                <span
-                  className={`absolute inset-0 flex items-center justify-center ${
-                    isDownloading ? "opacity-100" : "opacity-0"
-                  }`}
-                >
-                  <svg
-                    className="animate-spin h-5 w-5 text-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                  </svg>
-                </span>
-                <span className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-              </button> */}
             </div>
           </div>
 
@@ -279,35 +252,63 @@ function Welcome() {
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
               Skills
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {skills.map((skill, index) => (
-                <div
-                  key={skill.name}
-                  className="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
-                  style={{
-                    transitionDelay: `${index * 100}ms`,
-                    opacity: isVisible ? 1 : 0,
-                    transform: isVisible ? "translateY(0)" : "translateY(20px)",
-                    transition: "opacity 0.5s ease, transform 0.5s ease",
-                  }}
-                >
-                  <div className="flex justify-between mb-2">
-                    <span className="font-medium text-gray-700">
-                      {skill.name}
-                    </span>
-                    <span className="text-blue-600">{skill.level}%</span>
-                  </div>
-                  <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
-                      style={{ width: `${skill.level}%` }}
-                    ></div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <motion.div
+              className="mt-16"
+              variants={containerVariants}
+              initial="hidden"
+              animate={isVisible ? "visible" : "hidden"}
+            >
+              <motion.h3
+                className="text-2xl font-semibold text-gray-700 mb-4"
+                variants={sectionVariants}
+              >
+                Front-End
+              </motion.h3>
+              <motion.div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {frontendSkills.map((skill) => (
+                  <motion.div
+                    key={skill.name}
+                    className="bg-white p-4 rounded-xl shadow-sm cursor-pointer overflow-hidden"
+                    variants={skillVariants}
+                    whileHover="hover"
+                  >
+                    <div className="flex items-center mb-2 gap-2">
+                      <skill.icon size={24} className="text-blue-500" />
+                      <span className="font-medium text-gray-700">
+                        {skill.name}
+                      </span>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              <motion.h3
+                className="text-2xl font-semibold text-gray-700 mb-4 mt-12"
+                variants={sectionVariants}
+              >
+                Back-End
+              </motion.h3>
+              <motion.div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {backendSkills.map((skill) => (
+                  <motion.div
+                    key={skill.name}
+                    className="bg-white p-4 rounded-xl shadow-sm cursor-pointer overflow-hidden"
+                    variants={skillVariants}
+                    whileHover="hover"
+                  >
+                    <div className="flex items-center mb-2 gap-2">
+                      <skill.icon size={24} className="text-purple-500" />
+                      <span className="font-medium text-gray-700">
+                        {skill.name}
+                      </span>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </motion.div>
           </div>
 
+          {/* Rest of your components remain the same */}
           {/* Experience */}
           <div className="mt-16">
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
@@ -327,7 +328,7 @@ function Welcome() {
                         isLeft ? "md:flex-row" : "md:flex-row-reverse"
                       }`}
                     >
-                      <div className="md:w-1/2 md:px-4 md:text-right md:pr-8 mb-4 md:mb-0">
+                      <div className="md:w-1/2 md:px-4 md:text-center md:pr-8 mb-4 md:mb-0">
                         <h3
                           className={`text-lg font-semibold ${
                             exp.color === "blue"
@@ -375,6 +376,7 @@ function Welcome() {
               </div>
             </div>
           </div>
+
           {/* Projects */}
           <div id="projects" className="mt-16">
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
@@ -405,6 +407,7 @@ function Welcome() {
               {renderProjects("ecommerce")}
             </div>
           </div>
+
           {/* My Works */}
           <div className="mt-16">
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">

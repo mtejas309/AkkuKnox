@@ -10,10 +10,11 @@ import Dashboard from "./pages/Dashbaord";
 import Welcome from "./pages/Welcome";
 import ZustandLearn from "./pages/ZustandLearn";
 import Landing from "./pages/Landing";
-
+import ScrollToTop from "./components/ScrollToTop";
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Layout>
         <Routes>
           <Route path="/" element={<Welcome />} />
