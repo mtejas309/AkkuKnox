@@ -89,7 +89,7 @@ function SideBar() {
                 <Chair size={24} />
                 {open && (
                   <span className="ml-4">
-                    Dashboard{" "}
+                    Space Management 
                     <span className="text-sm text-gray-500">(Redux)</span>
                   </span>
                 )}
