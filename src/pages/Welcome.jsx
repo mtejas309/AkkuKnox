@@ -101,6 +101,14 @@ function Welcome() {
 
       path: "/dashboard", // 👈 Added
     },
+    {
+      title: "Interactive Floor Mapping",
+      description:
+        "An interactive floor plan management system that provides a visual interface for managing, booking, and monitoring office desks and workspaces in real-time. This web application helps organizations optimize their office space utilization through an intuitive map-based interface.",
+      technologies: ["React"],
+
+      path: "/intercativefloor", // 👈 Added
+    },
   ];
 
   const renderProjects = (category) =>

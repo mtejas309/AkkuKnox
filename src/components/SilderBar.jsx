@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import { House, SquaresFour, List, Monitor } from "phosphor-react";
 import { Link, useLocation } from "react-router-dom";
-
+import {
+  Chair,
+  Building,
+  MapPin,
+  X,
+  Calendar,
+  Clock,
+  User,
+  Users,
+} from "@phosphor-icons/react";
 function SideBar() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
@@ -69,6 +78,23 @@ function SideBar() {
                 </span>
               )}
             </Link>
+
+            <li>
+              <Link
+                to="/intercativefloor"
+                className={`flex items-center px-3 py-3 rounded-md transition ${isActive(
+                  "/intercativefloor"
+                )}`}
+              >
+                <Chair size={24} />
+                {open && (
+                  <span className="ml-4">
+                    Dashboard{" "}
+                    <span className="text-sm text-gray-500">(Redux)</span>
+                  </span>
+                )}
+              </Link>
+            </li>
           </li>
         </ul>
       </nav>
