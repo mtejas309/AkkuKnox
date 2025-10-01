@@ -90,7 +90,6 @@ function SideBar() {
                 {open && (
                   <span className="ml-4">
                     Space Management 
-                    <span className="text-sm text-gray-500">(Redux)</span>
                   </span>
                 )}
               </Link>
