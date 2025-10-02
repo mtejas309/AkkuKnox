@@ -11,7 +11,8 @@ import {
   HandGrabbing,
 } from "@phosphor-icons/react";
 import Bg from "../assets/Screenshot 2025-10-01 105505.png";
-
+import edit1 from "../assets/edit1.jpg";
+import edit2 from "../assets/edit2.jpg";
 function InteractiveFloor() {
   // Enhanced sample data generation
   const generateSampleData = () => {
@@ -124,7 +125,25 @@ function InteractiveFloor() {
 
     return data;
   };
-
+  const floorBackgrounds = {
+    "1F": edit1, // Ground floor - main entrance
+    "2F": edit2, // Second floor - different layout
+    "3F": edit1, // You can add more specific images
+    "4F": edit2,
+    "5F": edit1,
+    "6F": edit2,
+    "7F": edit1,
+    "8F": edit2,
+    "9F": edit1,
+    "10F": edit2,
+    "11F": edit1,
+    "12F": edit2,
+    "13F": edit1,
+    "14F": edit2,
+    "15F": edit1,
+    // Add default fallback
+    default: edit1,
+  };
   const [desks, setDesks] = useState([]);
   const [hoverDesk, setHoverDesk] = useState(null);
   const [selectedDesk, setSelectedDesk] = useState(null);
@@ -331,7 +350,9 @@ function InteractiveFloor() {
     }
     return "Available";
   };
-
+  const getFloorBackground = (floor) => {
+    return floorBackgrounds[floor] || floorBackgrounds.default;
+  };
   return (
     <div style={{ padding: 20, maxWidth: 1400, margin: "0 auto" }}>
       {/* Header */}
@@ -587,7 +608,7 @@ function InteractiveFloor() {
               position: "absolute",
               width: "100%",
               height: "100%",
-              backgroundImage: `url(${Bg})`,
+              backgroundImage: `url(${getFloorBackground(selectedFloor)})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
