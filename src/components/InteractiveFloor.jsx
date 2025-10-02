@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Chair,
   Building,
@@ -8,6 +8,7 @@ import {
   Clock,
   User,
   Users,
+  HandGrabbing,
 } from "@phosphor-icons/react";
 import Bg from "../assets/Screenshot 2025-10-01 105505.png";
 
@@ -72,21 +73,55 @@ function InteractiveFloor() {
         }
       }
     });
-    data.push({
-      id: id++,
-      name: "Desk A-01-NEWwwwwww", // Custom name
-      x: 10, // Specific position (50% from left)
-      y: 50, // Specific position (50% from top)
-      occupied: false, // Available by default
-      floor: "1F",
-      wing: "Central",
-      block: "A",
-      type: "Executive",
-      capacity: 2,
-      amenities: ["Monitor", "Docking", "Window"],
-      lastCleaned: new Date().toISOString(),
-      bookedUntil: null,
-    });
+    const customDesks = [
+      {
+        id: id++,
+        name: "Desk A-01-01",
+        x: 15, // 15% from left
+        y: 25, // 25% from top
+        occupied: false,
+        floor: "1F",
+        wing: "Central",
+        block: "A",
+        type: "Executive",
+        capacity: 2,
+        amenities: ["Monitor", "Docking", "Window"],
+        lastCleaned: new Date().toISOString(),
+        bookedUntil: null,
+      },
+      {
+        id: id++,
+        name: "Desk A-01-02",
+        x: 50, // 50% from left
+        y: 50, // 50% from top
+        occupied: true,
+        floor: "1F",
+        wing: "North",
+        block: "A",
+        type: "Collaborative",
+        capacity: 4,
+        amenities: ["Monitor", "Whiteboard"],
+        lastCleaned: new Date().toISOString(),
+        bookedUntil: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString(), // 2 hours from now
+      },
+      {
+        id: id++,
+        name: "Desk A-01-03",
+        x: 35, // 35% from left
+        y: 60, // 60% from top
+        occupied: false,
+        floor: "1F",
+        wing: "South",
+        block: "A",
+        type: "Standing",
+        capacity: 1,
+        amenities: ["Monitor"],
+        lastCleaned: new Date().toISOString(),
+        bookedUntil: null,
+      },
+    ];
+    data.push(...customDesks);
+
     return data;
   };
 
@@ -109,6 +144,13 @@ function InteractiveFloor() {
   const [minCapacity, setMinCapacity] = useState(1);
   const [showOnlyOccupied, setShowOnlyOccupied] = useState(false);
 
+  // Dragging and zoom state
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [scale, setScale] = useState(1);
+  const containerRef = useRef(null);
+
   // Calculate if a desk is available for booking
   const isDeskAvailable = (desk) => {
     if (!desk.occupied) return true;
@@ -129,6 +171,64 @@ function InteractiveFloor() {
     const today = new Date();
     const dateString = today.toISOString().split("T")[0];
     setBookingDetails((prev) => ({ ...prev, date: dateString }));
+  }, []);
+
+  // Dragging handlers
+  const handleMouseDown = (e) => {
+    if (e.button !== 0) return; // Only left click
+    setIsDragging(true);
+    setDragStart({
+      x: e.clientX - position.x,
+      y: e.clientY - position.y,
+    });
+    if (containerRef.current) {
+      containerRef.current.style.cursor = "grabbing";
+    }
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+
+    setPosition({
+      x: e.clientX - dragStart.x,
+      y: e.clientY - dragStart.y,
+    });
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+    if (containerRef.current) {
+      containerRef.current.style.cursor = "grab";
+    }
+  };
+
+  // Zoom handler
+  const handleWheel = (e) => {
+    e.preventDefault();
+    const zoomSpeed = 0.1;
+    const newScale = e.deltaY > 0 ? scale - zoomSpeed : scale + zoomSpeed;
+    setScale(Math.max(0.5, Math.min(3, newScale))); // Limit scale between 0.5x and 3x
+  };
+
+  // Reset view
+  const resetView = () => {
+    setPosition({ x: 0, y: 0 });
+    setScale(1);
+  };
+
+  // Add global mouse up listener
+  useEffect(() => {
+    const handleGlobalMouseUp = () => {
+      setIsDragging(false);
+      if (containerRef.current) {
+        containerRef.current.style.cursor = "grab";
+      }
+    };
+
+    document.addEventListener("mouseup", handleGlobalMouseUp);
+    return () => {
+      document.removeEventListener("mouseup", handleGlobalMouseUp);
+    };
   }, []);
 
   const toggleDesk = (id) => {
@@ -211,17 +311,6 @@ function InteractiveFloor() {
       occupiedMatch
     );
   });
-
-  // Get floor layout based on block and floor
-  const getFloorLayout = (block, floor) => {
-    return {
-      backgroundImage: `url(${Bg})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      backgroundRepeat: "no-repeat",
-      backgroundColor: "#f0f0f0", // Fallback color
-    };
-  };
 
   // Get desk status color
   const getDeskColor = (desk) => {
@@ -472,95 +561,120 @@ function InteractiveFloor() {
         </div>
       </div>
 
-      {/* Floor map */}
-      <div style={{ position: "relative" }}>
+      {/* Floor map with drag functionality */}
+      <div style={{ position: "relative", marginBottom: 20 }}>
         <div
           style={{
             position: "relative",
             width: "100%",
             height: "600px",
             margin: "0 auto",
-            ...getFloorLayout(selectedBlock, selectedFloor),
             border: "2px solid #ccc",
             borderRadius: "12px",
             overflow: "hidden",
             boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+            cursor: isDragging ? "grabbing" : "grab",
           }}
+          ref={containerRef}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onWheel={handleWheel}
         >
-          {/* Render desks */}
-          {filteredDesks.map((desk) => {
-            const isAvailable = isDeskAvailable(desk);
-            const deskColor = getDeskColor(desk);
+          {/* Floor plan container that moves and scales */}
+          <div
+            style={{
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              backgroundImage: `url(${Bg})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              backgroundColor: "#f0f0f0",
+              transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
+              transformOrigin: "center center",
+              transition: isDragging ? "none" : "transform 0.1s ease",
+            }}
+          >
+            {/* Render desks - they move with the floor plan */}
+            {filteredDesks.map((desk) => {
+              const isAvailable = isDeskAvailable(desk);
+              const deskColor = getDeskColor(desk);
 
-            // Don't show available desks when only occupied filter is enabled
-            if (showOnlyOccupied && isAvailable) {
-              return null;
-            }
+              // Don't show available desks when only occupied filter is enabled
+              if (showOnlyOccupied && isAvailable) {
+                return null;
+              }
 
-            return (
-              <div
-                key={desk.id}
-                onMouseEnter={() => setHoverDesk(desk)}
-                onMouseLeave={() => setHoverDesk(null)}
-                onClick={() => setSelectedDesk(desk)}
-                style={{
-                  position: "absolute",
-                  left: `${desk.x}%`,
-                  top: `${desk.y}%`,
-                  transform: "translate(-50%, -50%)",
-                  cursor: "pointer",
-                  background: "white",
-                  borderRadius: "8px",
-                  padding: "6px",
-                  color: deskColor,
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
-                  transition: "all 0.3s",
-                  border: `2px solid ${deskColor}`,
-                  zIndex: hoverDesk?.id === desk.id ? 10 : 1,
-                  transform:
-                    hoverDesk?.id === desk.id
-                      ? "translate(-50%, -50%) scale(1.3)"
-                      : "translate(-50%, -50%)",
-                }}
-                title={`${desk.name} - ${getDeskStatus(desk)}`}
-              >
-                <Chair
-                  size={20}
-                  weight={hoverDesk?.id === desk.id ? "fill" : "regular"}
-                />
-                {desk.capacity > 1 && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: -5,
-                      right: -5,
-                      background: "#ffc107",
-                      color: "white",
-                      borderRadius: "50%",
-                      width: 16,
-                      height: 16,
-                      fontSize: "10px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {desk.capacity}
-                  </div>
-                )}
-              </div>
-            );
-          })}
+              return (
+                <div
+                  key={desk.id}
+                  onMouseEnter={() => setHoverDesk(desk)}
+                  onMouseLeave={() => setHoverDesk(null)}
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent dragging when clicking desks
+                    setSelectedDesk(desk);
+                  }}
+                  style={{
+                    position: "absolute",
+                    left: `${desk.x}%`,
+                    top: `${desk.y}%`,
+                    transform: "translate(-50%, -50%)",
+                    cursor: "pointer",
+                    background: "white",
+                    borderRadius: "8px",
+                    padding: "6px",
+                    color: deskColor,
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+                    transition: "all 0.3s",
+                    border: `2px solid ${deskColor}`,
+                    zIndex: hoverDesk?.id === desk.id ? 10 : 1,
+                    transform:
+                      hoverDesk?.id === desk.id
+                        ? "translate(-50%, -50%) scale(1.3)"
+                        : "translate(-50%, -50%)",
+                  }}
+                  title={`${desk.name} - ${getDeskStatus(desk)}`}
+                >
+                  <Chair
+                    size={20}
+                    weight={hoverDesk?.id === desk.id ? "fill" : "regular"}
+                  />
+                  {desk.capacity > 1 && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: -5,
+                        right: -5,
+                        background: "#ffc107",
+                        color: "white",
+                        borderRadius: "50%",
+                        width: 16,
+                        height: 16,
+                        fontSize: "10px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {desk.capacity}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
 
           {/* Hover tooltip */}
           {hoverDesk && (
             <div
               style={{
                 position: "absolute",
-                left: `${hoverDesk.x + 2}%`,
-                top: `${hoverDesk.y}%`,
-                transform: "translateY(-50%)",
+                left: `calc(${hoverDesk.x}% + ${position.x}px)`,
+                top: `calc(${hoverDesk.y}% + ${position.y}px)`,
+                transform: `translate(20px, -50%) scale(${1 / scale})`,
                 background: "#fff",
                 padding: "16px",
                 borderRadius: "12px",
@@ -570,6 +684,7 @@ function InteractiveFloor() {
                 zIndex: 20,
                 minWidth: 250,
                 maxWidth: 300,
+                pointerEvents: "none",
               }}
             >
               <strong
@@ -651,12 +766,99 @@ function InteractiveFloor() {
             display: "flex",
             alignItems: "center",
             gap: 8,
+            zIndex: 5,
           }}
         >
           📍 {selectedBlock} Block • {selectedFloor} •{" "}
           {selectedWing || "All Wings"}
           {selectedType && ` • ${selectedType}`}
           {showOnlyOccupied && " • Occupied Only"}
+        </div>
+
+        {/* Zoom and reset controls */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: 20,
+            right: 20,
+            background: "white",
+            padding: "8px",
+            borderRadius: "8px",
+            border: "1px solid #ddd",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+            display: "flex",
+            flexDirection: "column",
+            gap: 8,
+            zIndex: 5,
+          }}
+        >
+          <button
+            onClick={() => setScale((prev) => Math.min(3, prev + 0.2))}
+            style={{
+              padding: "8px 12px",
+              border: "1px solid #007bff",
+              background: "#007bff",
+              color: "white",
+              borderRadius: "4px",
+              cursor: "pointer",
+              fontSize: "16px",
+            }}
+          >
+            +
+          </button>
+          <button
+            onClick={() => setScale((prev) => Math.max(0.5, prev - 0.2))}
+            style={{
+              padding: "8px 12px",
+              border: "1px solid #dc3545",
+              background: "#dc3545",
+              color: "white",
+              borderRadius: "4px",
+              cursor: "pointer",
+              fontSize: "16px",
+            }}
+          >
+            -
+          </button>
+          <button
+            onClick={resetView}
+            style={{
+              padding: "8px 12px",
+              border: "1px solid #6c757d",
+              background: "#6c757d",
+              color: "white",
+              borderRadius: "4px",
+              cursor: "pointer",
+              fontSize: "12px",
+              display: "flex",
+              alignItems: "center",
+              gap: 4,
+            }}
+          >
+            <HandGrabbing size={14} />
+            Reset
+          </button>
+        </div>
+
+        {/* Drag instructions */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: 20,
+            left: 20,
+            background: "rgba(255,255,255,0.9)",
+            padding: "8px 12px",
+            borderRadius: "6px",
+            fontSize: "12px",
+            color: "#6c757d",
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+            zIndex: 5,
+          }}
+        >
+          <HandGrabbing size={14} />
+          Drag to move • Scroll to zoom
         </div>
       </div>
 
